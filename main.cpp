@@ -9,6 +9,14 @@ using namespace std;
     2. Child Process - Handles one Search process (Remember to deallocate)
 */
 
+void printArray(char arr[], int arrSize){
+    for(int i = 0; i < arrSize; i++){
+        cout << arr[i] << ", ";
+    }
+
+    cout << endl;
+}
+
 int main()
 {
     int childPID = 10;      //Dummy Value
@@ -18,6 +26,10 @@ int main()
 
     char input;             //Can only be accessed in Parent Process
     char *arr;              //Can only be accessed in Child Process
+
+    char alphabet[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O','P', 'Q', 'R', 'S', 'T', 'U','V', 'W', 'X',
+        'Y', 'Z'
+    };
 
     srand(time(NULL));      //Used for Randomizing Array
 
@@ -47,12 +59,14 @@ int main()
 
                 //Populates Array with Upper Case Letters (Randomly)
                 for(int i = 0 ; i < arrSize; i++){
-                    arr[i] = rand() % 90 + 65;
+                    arr[i] = rand() % 26;
 
                     //Search and Count # of occurences of letter in the array
                     if(arr[i] == input)
                         ++occurences;
                 }
+
+                printArray(arr, arrSize);
 
                 //Delete array after job is completed (De-allocate memory space to prevent memory leak)
                 delete[] arr;
