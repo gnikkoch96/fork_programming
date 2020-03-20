@@ -11,7 +11,7 @@ using namespace std;
 
 int main()
 {
-    int childPID = fork();
+    int childPID = 10;      //Dummy Value
     int choice;             //(Parent) For text-based menu
     int arrSize;            //Determine the size of the array
     int occurences;         //(Child) Count the # of times a letter has appeared
@@ -27,6 +27,8 @@ int main()
         cout << "====MENU====\n1.Run Program\n2.Exit Program\nChoice: ";
         cin >> choice;
         cout << endl;
+
+
         if(choice == 1){//Run Program
             //Array Size
             cout << "Enter size: ";
@@ -38,9 +40,10 @@ int main()
             cin >> input;;
             cout << endl;
 
+            childPID = fork();                      //Process is created where the child process knows the input and size of the array
             if(childPID == 0) //Child Process
             {
-                arr = new arr[arrSize];
+                arr = new char[arrSize];
 
                 //Populates Array with Upper Case Letters (Randomly)
                 for(int i = 0 ; i < arrSize; i++){
@@ -56,7 +59,7 @@ int main()
 
                 //(Debug) Output # of Occurences
                 cout << input << " appeared " << occurences << " times" << endl;
-            }else //Parent Process - Error: Child Process could not be created
+            }else if (childPID < 0)//Parent Process - Error: Child Process could not be created
             {
                 cout << "Error: " << getpid() << " couldn't spawn a child" << endl;
             }
