@@ -32,57 +32,58 @@ int main()
     };
 
     srand(time(NULL));      //Used for Randomizing Array
-
-    if(childPID > 0)        //Parent Process
-    {
-        //Text Based Menu
-        cout << "====MENU====\n1.Run Program\n2.Exit Program\nChoice: ";
-        cin >> choice;
-        cout << endl;
-
-
-        if(choice == 1){//Run Program
-            cout << "====Parent Process====" << endl;
-            //Array Size
-            cout << "Enter size: ";
-            cin >> arrSize;
-            cout << endl << endl;
-
-            //Character to be searched
-            cout << "Enter a Character: ";
-            cin >> input;;
+    do{
+        if(childPID > 0)        //Parent Process
+        {
+            //Text Based Menu
+            cout << "====MENU====\n1.Run Program\n2.Exit Program\nChoice: ";
+            cin >> choice;
             cout << endl;
 
-            childPID = fork();                      //Process is created where the child process knows the input and size of the array
-            if(childPID == 0) //Child Process
-            {
-                cout << "====Child Process====" << endl;
-                arr = new char[arrSize];
+            if(choice == 1){//Run Program
+                cout << "====Parent Process====" << endl;
+                //Array Size
+                cout << "Enter size: ";
+                cin >> arrSize;
+                cout << endl << endl;
 
-                //Populates Array with Upper Case Letters (Randomly)
-                for(int i = 0 ; i < arrSize; i++){
-                    arr[i] = alphabet[rand() % 26];
+                //Character to be searched
+                cout << "Enter a Character: ";
+                cin >> input;;
+                cout << endl;
 
-                    //Search and Count # of occurences of letter in the array
-                    if(arr[i] == input)
-                        ++occurences;
+                childPID = fork();                      //Process is created where the child process knows the input and size of the array
+                if(childPID == 0) //Child Process
+                {
+                    cout << "====Child Process====" << endl;
+                    arr = new char[arrSize];
+
+                    //Populates Array with Upper Case Letters (Randomly)
+                    for(int i = 0 ; i < arrSize; i++){
+                        arr[i] = alphabet[rand() % 26];
+
+                        //Search and Count # of occurences of letter in the array
+                        if(arr[i] == input)
+                            ++occurences;
+                    }
+
+                    //(Debug) Check
+                    printArray(arr, arrSize);
+
+                    //Delete array after job is completed (De-allocate memory space to prevent memory leak)
+                    delete[] arr;
+
+                    //(Debug) Output # of Occurences
+                    cout << input << " appeared " << occurences << " times" << endl;
+                }else if (childPID < 0)//Parent Process - Error: Child Process could not be created
+                {
+                    cout << "Error: " << getpid() << " couldn't spawn a child" << endl;
                 }
-
-                //(Debug) Check
-                printArray(arr, arrSize);
-
-                //Delete array after job is completed (De-allocate memory space to prevent memory leak)
-                delete[] arr;
-
-                //(Debug) Output # of Occurences
-                cout << input << " appeared " << occurences << " times" << endl;
-            }else if (childPID < 0)//Parent Process - Error: Child Process could not be created
-            {
-                cout << "Error: " << getpid() << " couldn't spawn a child" << endl;
+            }else{
+                cout << "Exiting Program..." << endl;
             }
-        }else{
-            cout << "Exiting Program..." << endl;
         }
-    }
+    }while(choice == 1);
+
     return 0;
 }
