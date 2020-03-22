@@ -41,7 +41,8 @@ int main()
             cout << endl;
 
             if(choice == 1){//Run Program
-                cout << "====Parent Process====" << endl;
+                cout << "====Parent Process: " << getpid() << " ====" << endl;
+                cout << "ParentID = " << getppid() << endl;
                 //Array Size
                 cout << "Enter size: ";
                 cin >> arrSize;
@@ -55,7 +56,9 @@ int main()
                 childPID = fork();                      //Process is created where the child process knows the input and size of the array
                 if(childPID == 0) //Child Process
                 {
-                    cout << "====Child Process====" << endl;
+                    cout << "====Child Process: " << getpid() << " ====" << endl;
+                    cout << "ParentID = " << getppid() << endl;
+
                     arr = new char[arrSize];
 
                     //Populates Array with Upper Case Letters (Randomly)
@@ -75,6 +78,7 @@ int main()
 
                     //(Debug) Output # of Occurences
                     cout << input << " appeared " << occurences << " times" << endl;
+                    cout << "(Debug) De-Allocating Array Space..." << endl;
                 }else if (childPID < 0)//Parent Process - Error: Child Process could not be created
                 {
                     cout << "Error: " << getpid() << " couldn't spawn a child" << endl;
