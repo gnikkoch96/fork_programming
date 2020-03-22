@@ -62,13 +62,17 @@ int main()
                     arr = new char[arrSize];
 
                     //Populates Array with Upper Case Letters (Randomly)
-                    for(int i = 0 ; i < arrSize; i++){
-                        arr[i] = alphabet[rand() % 26];
+                    do{
+                        for(int i = 0 ; i < arrSize; i++){
+                            arr[i] = alphabet[rand() % 26];
 
-                        //Search and Count # of occurences of letter in the array
-                        if(arr[i] == input)
-                            ++occurences;
-                    }
+                            //Search and Count # of occurences of letter in the array
+                            if(arr[i] == input)
+                                ++occurences;
+                        }
+                        if(occurences < 1)
+                            cout << "Child Process: " << getpid() << " couldn't find any occurence of " << input << endl;
+                    while(occurences < 1);
 
                     //(Debug) Check
                     printArray(arr, arrSize);
