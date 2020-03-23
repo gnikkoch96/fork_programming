@@ -55,7 +55,7 @@ int main()
 
 
                 if(childPID = fork())                   //Process is created where the child process knows the input and size of the array
-                    pid_t cpid = wait(NULL);
+                    pid_t cpid = wait(NULL);            //Parent Process Waits for Child Process to Finish
 
                 if(childPID == 0) //Child Process
                 {
