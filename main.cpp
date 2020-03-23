@@ -41,8 +41,8 @@ int main()
             cout << endl;
 
             if(choice == 1){//Run Program
-                cout << "====Parent Process: " << getpid() << " ====" << endl;
-                cout << "ParentID = " << getppid() << endl;
+                cout << "====Parent Process: " << getpid() << " | " << "ParentID: " << getppid() << "====" << endl;
+
                 //Array Size
                 cout << "Enter size: ";
                 cin >> arrSize;
@@ -53,16 +53,18 @@ int main()
                 cin >> input;;
                 cout << endl;
 
-                childPID = fork();                      //Process is created where the child process knows the input and size of the array
+
+                if(childPID = fork())                   //Process is created where the child process knows the input and size of the array
+                    pid_t cpid = wait(NULL);
+
                 if(childPID == 0) //Child Process
                 {
-                    cout << "====Child Process: " << getpid() << " ====" << endl;
-                    cout << "ParentID = " << getppid() << endl;
+                    cout << "====Child Process: " << getpid() << " | " << "ParentID: " << getppid() << "====" << endl;
 
                     arr = new char[arrSize];
 
                     //Populates Array with Upper Case Letters (Randomly)
-                    do{
+                    do{//Injected Bug Portion
                         for(int i = 0 ; i < arrSize; i++){
                             arr[i] = alphabet[rand() % 26];
 
@@ -72,10 +74,10 @@ int main()
                         }
                         if(occurences < 1)
                             cout << "Child Process: " << getpid() << " couldn't find any occurence of " << input << endl;
-                    while(occurences < 1);
+                    }while(occurences < 1);
 
                     //(Debug) Check
-                    printArray(arr, arrSize);
+//                    printArray(arr, arrSize);
 
                     //Delete array after job is completed (De-allocate memory space to prevent memory leak)
                     delete[] arr;
