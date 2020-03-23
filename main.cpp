@@ -85,6 +85,9 @@ int main()
                     //(Debug) Output # of Occurences
                     cout << input << " appeared " << occurences << " times" << endl;
                     cout << "(Debug) De-Allocating Array Space..." << endl;
+
+                    //Child Process Exits and Returns back to Parent Process
+                    exit(0);
                 }else if (childPID < 0)//Parent Process - Error: Child Process could not be created
                 {
                     cout << "Error: " << getpid() << " couldn't spawn a child" << endl;
