@@ -89,6 +89,7 @@ int main()
                     cout << "(Debug) De-Allocating Array Space..." << endl;
 
                     //Child Process Exits and Returns back to Parent Process
+                    //It returns an integer to the parent with the wait()
                     exit(0);
                 }else if (childPID < 0)//Parent Process - Error: Child Process could not be created
                 {
