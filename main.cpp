@@ -54,6 +54,7 @@ int main()
                 cout << endl;
 
 
+                //Anything that is changed after this in the child process won't affect the parent process
                 if(childPID = fork())                   //Process is created where the child process knows the input and size of the array
                     pid_t cpid = wait(NULL);            //In the parent process, it returns the pid of the child process once it is done
 
