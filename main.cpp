@@ -81,6 +81,7 @@ int main()
 //                    printArray(arr, arrSize);
 
                     //Delete array after job is completed (De-allocate memory space to prevent memory leak)
+                    //Since I used the same array, I technically still created only one new array dynamically in the child process which is why after this delete it deletes all arrays
                     delete[] arr;
 
                     //(Debug) Output # of Occurences
